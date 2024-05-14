@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'; // Import for navigation
 import { getAuth } from 'firebase/auth';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const auth = getAuth();
 
@@ -19,14 +19,15 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setError(null); // Clear error state on success
-      navigate('/'); // Navigate to home page
+     // Navigate to home page
 
       // Display success toast notification (optional)
-      toast.success('Login successful!',{ style: { backgroundColor: 'green', position:'top-right', color: 'white' } });
+      await toast.success('Login successful!',{ position: "top-center",autoClose:2000, color:'red',fontSize:'20%'});
+       navigate('/');
 
     } catch (error) {
       setError(error.message);
-      toast.error('Login failed!', { style: { backgroundColor: 'green', color: 'white' } }); // Display error toast
+      toast.error('Login failed!', { position: "top-center",autoClose:2000}); // Display error toast
     }
   };
 
@@ -84,6 +85,7 @@ gap:'10%'
        
       </form>
       {error && <p>{error}</p>}
+      <div> <ToastContainer /></div>
     </div>
   );
 };

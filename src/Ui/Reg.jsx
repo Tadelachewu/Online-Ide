@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast
+import { ToastContainer,toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { getAuth } from 'firebase/auth';
@@ -24,28 +24,16 @@ const Signup = () => {
       setError(null); // Clear error state on success
 
       // Redirect and show success toast (optional)
+      await toast.success('Signup successful!', {autoClose:2000});
       navigate('/');
-      toast.success('Signup successful!', { position: "top-right",style:toastStyle });
     } catch (error) {
       setError(error.message);
-      toast.error('Signup failed!', { position: "bottom-right",style:toastStyle2}); // Display error toast//style:toastStyle2
+      toast.error('Signup failed!', {autoClose:2000}); // Display error toast//style:toastStyle2
     }
   };
 
   // Custom CSS for toast styling (optional)
-  const toastStyle = {
-    backgroundColor: '#f44336', // Adjust background color
-    color: '#fff', // Adjust text color
-    padding: '1rem', // Adjust padding
-    borderRadius: '5px', // Adjust border radius
-  };
-
-  const toastStyle2 = {
-    backgroundColor: 'red', // Adjust background color
-    color: '#fff', // Adjust text color
-    padding: '1rem', // Adjust padding
-    borderRadius: '5px', // Adjust border radius
-  };
+ 
 
   const form={
     width: '30%',
@@ -96,6 +84,7 @@ const Signup = () => {
         <button style={button} type="submit">Sign Up</button>
       </form>
       {error && <p>{error}</p>}
+      <div> <ToastContainer /></div>
     </div>
   );
 };
