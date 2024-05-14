@@ -13,15 +13,17 @@ const Navigat = () => {
    color: 'mediumspringgreen'
   }
   const log={
-    padding:'20px',
+    padding:'10px',
     margin:'6px',
     color:'white',
+    borderRadius:'7px',
     backgroundColor: 'black'
   }
   const sign={
-    padding:'20px',
+    padding:'10px',
     margin:'6px',
     color:'white',
+    borderRadius:'7px',
     backgroundColor: 'black'
   }
   return (

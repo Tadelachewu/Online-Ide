@@ -49,7 +49,7 @@ const EditorOnline = ()=>{
   const buttonStyl = {
     backgroundColor: 'gray',
     color: 'white',
-    gridGap: "10px",
+    gridGap: "30px",
     fontSize:"20px"
 
   }
@@ -75,21 +75,56 @@ const EditorOnline = ()=>{
         // Handle errors (e.g., display an error message)
       }
   }
+   const langu={
+    position:'relative',
+    left:'25%',
+    padding:'10px',
+    color:'blue',
+    backgroundColor:'golden',
+    fontSize:'6PX'
+   }
+ const signout={
+  position:'relative',
+  left:'60%',
+  backgroundColor:'black',
+  color:'white',
+  padding:"5px",
+  borderRadius:'10px'
+ }
+ 
 
+ const buttons = {
+  width:'30%',
+  height:'30%',
+  backgroundColor:'rgb(8,0,10)',
+  display:'flex',
+  gap:'30px',
+}
 
+const buttonStyle = {
+  backgroundColor: 'green',
+  fontSize:'20px',
+  color: 'white', // Set text color to white
+  marginRight: '5px', // Add some spacing between buttons
+};
     return (
     <div>
     <div className="buttons" style={buttonStyl}>  
-        <button style={{backgroundColor:"green"}} onClick={() => handleClick('run')}>Run</button>
-        <button style={{backgroundColor:"green"}}onClick={() => handleClick('save')}>Save</button>
-        <button style={{backgroundColor:"green"}} onClick={() => handleClick('chat')}>Chat</button>
-        <button style={{backgroundColor:"green"}} onClick={() => handleClick('help')}>Help</button>
-        <button style={{backgroundColor:"green"}} onClick={() => handleClick('upload')}>upload</button>
-        <button style={{backgroundColor:"green"}} onClick={() => handleClick('download')}>download</button>
-        
-    </div>
-    <div className="LANGUAGE">
-      <select value={lang} >
+
+
+
+    <div style={buttons}>
+  <button style={buttonStyle} onClick={() => handleClick('run')}>Run</button>
+  <button style={buttonStyle} onClick={() => handleClick('save')}>Save</button>
+  <button style={buttonStyle} onClick={() => handleClick('chat')}>Chat</button>
+  <button style={buttonStyle} onClick={() => handleClick('help')}>Help</button>
+  <button style={buttonStyle} onClick={() => handleClick('upload')}>Upload</button>
+  <button style={buttonStyle} onClick={() => handleClick('download')}>Download</button>
+</div>
+
+
+        <div className="LANGUAGE" style={langu}>
+      <select value={lang} onChange={(e)=>setLang(e.target.value)} style={{ width: '200px', padding: '10px', fontSize: '16px', border: '1px solid #ccc', borderRadius: '5px' }} >
         <option value="c++">c++</option>
         <option value="c">c</option>
         <option value="java">java</option>
@@ -98,7 +133,16 @@ const EditorOnline = ()=>{
         <option value="flutter">flutter</option>
         <option value="web">web</option>
       </select>
+
+
+      <span > 
+      <button style={signout} onClick={handleSignOut}>Sign Out</button>
+      </span>
+
     </div>
+
+    </div>
+
     <div className="editorcss">  
         <AceEditor
           theme="monokai"
@@ -111,7 +155,7 @@ const EditorOnline = ()=>{
           />
       </div> 
       <div className="output"  style={outputStyle}>{output}</div>
-      <button onClick={handleSignOut}>Sign Out</button>
+      
       </div>);
 }
 export default EditorOnline;
