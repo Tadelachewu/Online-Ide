@@ -8,7 +8,8 @@
     "react": "^18.3.1",
     "react-ace": "^11.0.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1"
+    "react-router-dom": "^6.23.1",
+    "react-toastify": "^10.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
   }
 }

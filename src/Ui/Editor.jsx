@@ -1,35 +1,37 @@
 import AceEditor from "react-ace";
 import {useState} from "react";
-import React, { Fragment } from 'react';
-//import 'ace-builds/src-noconflict/theme-monokai';
+import { getAuth } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import 'ace-builds/src-noconflict/theme-monokai';
-//import 'ace-builds/src-noconflict/theme-solarized_light';
-//import 'ace-builds/src-noconflict/theme-chrome';
-//import 'ace-builds/src-noconflict/theme-clouds';
-//import 'ace-builds/src-noconflict/theme-twilight';
-//import 'ace-builds/src-noconflict/theme-tomorrow';
+const auth = getAuth();
 const EditorOnline = ()=>{
 
     const [editorValue, setEditorValue] = useState("Enter your text here...");
 
     const [output, setOutput] = useState("");
+    const [lang, setLang] = useState("");
+    const navigate = useNavigate();
+
   const handleClick = (action) => {
-    if (action === 'run') {
-        if (action === 'run') {
+    if (action=='run') {
+       
             try {
               // Execute the code here
               const result = eval(editorValue); //  Using eval can be dangerous and is not recommended for production use. Consider using a safer alternative like a sandboxed JavaScript execution environment.
               setOutput(result);
             } catch (error) {
-              setOutput("Errory: " + error.message);
-            }
-      
-    }
- } else if (action === 'save') {
+              setOutput("Errory: " + error.message);}
+          }
+        
+  
+    else if (action === 'save') {
       // Handle save action
-    } else if (action === 'chat') {
+    }
+     else if (action === 'chat') {
       // Handle chat action
-    } else if (action === 'help') {
+    } 
+    else if (action === 'help') {
       // Handle help action
     }
     else if (action === 'upload') {
@@ -37,17 +39,17 @@ const EditorOnline = ()=>{
       } else if (action === 'download') {
         // Handle load action
       } 
-  };
+  }
 
 
   const handleChange = (newValue) => {
     setEditorValue(newValue);
-  };
+  }
 
   const buttonStyl = {
     backgroundColor: 'gray',
     color: 'white',
-  gridGap: "10px",
+    gridGap: "10px",
     fontSize:"20px"
 
   }
@@ -62,6 +64,19 @@ const EditorOnline = ()=>{
   }
 
 
+  
+  const handleSignOut = async () => {
+    try {
+        await signOut(auth);
+        console.log('User signed out successfully');
+        navigate('/login'); // Redirect to login page after sign-out
+      } catch (error) {
+        console.error('Logout error:', error);
+        // Handle errors (e.g., display an error message)
+      }
+  }
+
+
     return (
     <div>
     <div className="buttons" style={buttonStyl}>  
@@ -73,8 +88,19 @@ const EditorOnline = ()=>{
         <button style={{backgroundColor:"green"}} onClick={() => handleClick('download')}>download</button>
         
     </div>
+    <div className="LANGUAGE">
+      <select value={lang} >
+        <option value="c++">c++</option>
+        <option value="c">c</option>
+        <option value="java">java</option>
+        <option value="python">python</option>
+        <option value="nodejs">node js</option>
+        <option value="flutter">flutter</option>
+        <option value="web">web</option>
+      </select>
+    </div>
     <div className="editorcss">  
-        < AceEditor
+        <AceEditor
           theme="monokai"
           mode="javascript"
           value={editorValue}
@@ -85,6 +111,8 @@ const EditorOnline = ()=>{
           />
       </div> 
       <div className="output"  style={outputStyle}>{output}</div>
+      <button onClick={handleSignOut}>Sign Out</button>
       </div>);
 }
 export default EditorOnline;
+
